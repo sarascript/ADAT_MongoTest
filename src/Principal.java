@@ -1,5 +1,6 @@
 import java.net.UnknownHostException;
 import java.util.List;
+import java.util.logging.Level;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
@@ -20,11 +21,11 @@ public class Principal {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		java.util.logging.Logger.getLogger("org.mongodb").setLevel(Level.OFF);
 		System.out.println("Prueba conexión MongoDB");
 		MongoClient mongo = crearConexion();
 
 		if (mongo != null) {
-			System.out.println("Lista de bases de datos: ");
 			// printDatabases(mongo);
 			// Si no existe la base de datos la crea
 			DB db = mongo.getDB("prueba");
@@ -61,6 +62,7 @@ public class Principal {
 	 *            conexión a MongoDB
 	 */
 	private static void printDatabases(MongoClient mongo) {
+		System.out.println("Lista de bases de datos: ");
 		List<String> dbs = mongo.getDatabaseNames();
 		for (String db : dbs) {
 			System.out.println(" - " + db);
